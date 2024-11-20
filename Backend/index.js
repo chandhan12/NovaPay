@@ -2,6 +2,8 @@ const express=require("express")
 const mongoose=require("mongoose");
 const dotenv=require("dotenv")
 
+const UserModel=require('./models/userSchema.js')
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URL).
