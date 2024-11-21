@@ -107,8 +107,14 @@ try {
 
 
 
-const userHi = (req, res) => {
-    res.json({ msg: "Hey bro" });
+const userHi =async (req, res) => {
+
+    const user=await UserModel.findById({
+        _id:req.userId
+    })
+    res.json({ name: user.userName,
+        id:user._id
+     });
 };
 
 module.exports = {
