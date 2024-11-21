@@ -28,11 +28,14 @@ const userSchema=new mongoose.Schema({
         require:true,
         trim:true,
         maxLenght:30,
-    }
+    },
+   
 });
 
 
 const UserModel=mongoose.model('User',userSchema);
+
+
 
 module.exports={
     UserModel

@@ -2,18 +2,25 @@ const express=require("express")
 const mongoose=require("mongoose");
 const dotenv=require("dotenv")
 
-const UserModel=require('./models/userSchema.js')
+const UserModel=require('./models/userSchema.js');
+const { userRouter } = require("./Routes/userRouter.js");
 
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URL).
 then(() =>{
     console.log('connected')
-}).catch((error)=>{
+}).
+catch((error)=>{
     console.log(error.message)
 })
 
 const app=express();
+
+app.use(express.json());
+
+app.use('/api/v1/user',userRouter);
+
 
 app.get("/",(req,res) =>{
     res.json({
