@@ -1,6 +1,7 @@
 const express=require("express")
 const mongoose=require("mongoose");
 const dotenv=require("dotenv")
+const cors=require('cors')
 
 const UserModel=require('./models/userSchema.js');
 const { userRouter } = require("./Routes/userRouter.js");
@@ -17,9 +18,12 @@ catch((error)=>{
 
 const app=express();
 
+app.use(cors())
+
 app.use(express.json());
 
 app.use('/api/v1/user',userRouter);
+
 
 
 app.get("/",(req,res) =>{
