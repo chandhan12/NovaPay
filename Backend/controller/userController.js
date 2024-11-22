@@ -104,6 +104,43 @@ try {
 }
 
 
+const updateUser=async (req,res)=>{
+
+    const requireBody=zod.object({
+        password:zod.string().min(6,"password must be greater than 6 "),
+        firstName:zod.string(),
+        lastName:zod.string()
+    })
+
+    const parseResult=requireBody.safeParse(req.body);
+
+
+    if(!parseResult.success){
+
+        res.status(411).json({
+            msg:"error while updating"
+        })
+    }
+
+    const {password,firstName,lastName}=parseResult.data
+
+    const hashedPassword=await bcrypt.hash(password,10)
+
+    await UserModel.updateOne({_id:req.userId},{
+        password:hashedPassword,
+        firstName:firstName,
+        lastName:lastName
+
+    })
+
+    res.status(200).json({
+        msg:"user updated successfully"
+
+    })
+    
+
+}
+
 
 
 
@@ -120,5 +157,6 @@ const userHi =async (req, res) => {
 module.exports = {
     userHi,
     userSignup,
-    userSignin
+    userSignin,
+    updateUser
 };
