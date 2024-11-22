@@ -126,6 +126,7 @@ const updateUser=async (req,res)=>{
 
     const hashedPassword=await bcrypt.hash(password,10)
 
+   try {
     await UserModel.updateOne({_id:req.userId},{
         password:hashedPassword,
         firstName:firstName,
@@ -137,7 +138,57 @@ const updateUser=async (req,res)=>{
         msg:"user updated successfully"
 
     })
+   } catch (error) {
+
+    res.status(411).json({
+        msg:"error while updating",
+        error:error.message
+    })
     
+   }
+    
+
+}
+
+const bulkUsers=async (req,res) =>{
+
+    const filter=req.query.filter || ""
+
+    try {
+        const users=await UserModel.find({
+            $or:[{
+                firstName:{
+                    $regex:filter
+                }
+            },
+            {
+                lastName:{
+                    $regex:filter
+                }
+            }
+        ]
+        })
+    
+        res.status(200).json({
+            user:users.map((eachUser) =>{
+                return({
+                    userName:eachUser.userName,
+                    userName:eachUser.userName,
+                    lastName:eachUser.lastName,
+                    _id:eachUser._id
+    
+                }
+                )
+            })
+        })
+    
+    } catch (error) {
+        res.status(400).json({
+            msg:"something went wrong",
+            error:error.message
+        })
+        
+    }
 
 }
 
@@ -158,5 +209,6 @@ module.exports = {
     userHi,
     userSignup,
     userSignin,
-    updateUser
+    updateUser,
+    bulkUsers
 };
