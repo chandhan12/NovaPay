@@ -4,7 +4,7 @@ const{Schema}=mongoose.Schema
 const userSchema=new mongoose.Schema({
     userName:{
         type:String,
-        require:true,
+        required:true,
         unique:true,
         trim:true,
         lowerCase:true,
@@ -13,19 +13,19 @@ const userSchema=new mongoose.Schema({
     },
     password:{
         type:String,
-        require:true,
+        required:true,
         minLength:6
         
     },
     firstName:{
         type:String,
-        require:true,
+        required:true,
         trim:true,
         maxLenght:30,
     },
     lastName:{
         type:String,
-        require:true,
+        required:true,
         trim:true,
         maxLenght:30,
     },
