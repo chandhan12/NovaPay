@@ -7,7 +7,7 @@ const Schema=mongoose.Schema;
 const accountSchema=new Schema({
     userId:{
         type:Schema.Types.ObjectId,
-        ref:UserModel,
+        ref:User,
         required:true
     },
     balance:{
