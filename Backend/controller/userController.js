@@ -2,6 +2,7 @@ const { UserModel } = require('../models/userSchema.js');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const zod = require("zod");
+const { AccountModel } = require('../models/accountSchema.js');
 
 const userSignup = async (req, res) => {
     const requireBody = zod.object({
@@ -41,6 +42,11 @@ const userSignup = async (req, res) => {
         });
 
         const userId = user._id;
+
+        await AccountModel.create({
+            userId,
+            balance:1+Math.random()*10000
+        })
 
         
         const token = jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "1h" });
