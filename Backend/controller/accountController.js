@@ -1,3 +1,4 @@
+const {  mongoose } = require("mongoose");
 const { AccountModel } = require("../models/accountSchema");
 
 const balance = async (req, res) => {
@@ -22,12 +23,17 @@ const balance = async (req, res) => {
 
 
 const transferAmount=async (req,res) =>{
+   try {
+    
+    const session = await mongoose.startSession();
+
+    session.startTransaction();
     const{amount,to}=req.body;
     const userId=req.userId;
 
     const account=await AccountModel.findOne({
         userId
-    })
+    }).session(session);
     if(account.balance<amount){
         return res.status(400).json({
             msg:"Insufficent funds"
@@ -36,7 +42,7 @@ const transferAmount=async (req,res) =>{
 
     const toAccount=await AccountModel.findOne({
         userId:to
-    })
+    }).session(session);
 
     if(!toAccount){
         return res.status(400).json({
@@ -50,7 +56,7 @@ const transferAmount=async (req,res) =>{
         $inc:{
             balance:-amount
         }
-    })
+    }).session(session);
 
     await AccountModel.updateOne({
         userId:to
@@ -58,11 +64,20 @@ const transferAmount=async (req,res) =>{
         $inc:{
             balance:amount
         }
-    })
+    }).session(session);
+
+
+    session.commitTransaction();
 
     res.json({
         msg:"Transaction successfull"
     })
+   } catch (error) {
+    res.status(401).json({
+        msg:error.message
+    })
+    
+   }
 }
 
 module.exports = {
