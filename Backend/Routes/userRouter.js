@@ -14,7 +14,7 @@ userRouter.get("/bulk",bulkUsers);
 
 
 
-
+//this route is for testing
 userRouter.get("/me",authMiddleware,userHi);
 
 

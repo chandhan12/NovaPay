@@ -5,6 +5,7 @@ const cors=require('cors')
 
 const UserModel=require('./models/userSchema.js');
 const { userRouter } = require("./Routes/userRouter.js");
+const { accountRouter } = require("./Routes/accountRouter.js");
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(cors())
 app.use(express.json());
 
 app.use('/api/v1/user',userRouter);
+app.use('/api/account',accountRouter);
 
 
 
