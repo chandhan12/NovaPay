@@ -1,14 +1,16 @@
 import React from 'react'
 import {BrowserRouter,Route,Routes} from "react-router-dom"
 import './index.css'
-import Signup from '../pages/Signup'
-import Dashboard from '../pages/Dashboard'
-import Signin from '../pages/Signin'
-import Sendmoney from '../pages/Sendmoney'
+import Signup from './pages/Signup'
+import Dashboard from './pages/Dashboard'
+import Signin from './pages/Signin'
+import Sendmoney from './pages/Sendmoney'
+import Heading from './components/Heading'
 
 const App = () => {
   return (
     <>
+   
     <BrowserRouter>
     <Routes>
       <Route path="/signup" element={<Signup/>} />
@@ -18,6 +20,7 @@ const App = () => {
 
     </Routes>
     </BrowserRouter>
+
     
     </>
   )
