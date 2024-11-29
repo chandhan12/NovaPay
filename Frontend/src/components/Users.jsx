@@ -16,7 +16,7 @@ const Users = () => {
         fetchData()
     },[filter])
 
-    {console.log(users)}
+   
   return (
     <>
     <div className='font-bold mt-6 text-lg'>
