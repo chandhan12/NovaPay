@@ -179,7 +179,7 @@ const bulkUsers=async (req,res) =>{
             user:users.map((eachUser) =>{
                 return({
                     userName:eachUser.userName,
-                    userName:eachUser.userName,
+                    firstName:eachUser.firstName,
                     lastName:eachUser.lastName,
                     _id:eachUser._id
     
