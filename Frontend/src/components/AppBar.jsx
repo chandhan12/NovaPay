@@ -3,8 +3,8 @@ import React from 'react'
 const AppBar = () => {
   return (
     <div className="shadow h-14 flex justify-between">
-        <div className="flex flex-col justify-center h-full ml-4">
-            NovaPay
+        <div className="flex  justify-center h-full ml-4 pt-4">
+            <span className='text-green-500 font-bold '>Nova</span><span className='text-purple-500 font-bold'>Pay</span>
         </div>
         <div className="flex">
             <div className="flex flex-col justify-center h-full mr-4">
